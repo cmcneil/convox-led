@@ -89,3 +89,16 @@ class LEDWarlock:
         """
         It's a Google party!
         """
+        # https://sites.google.com/site/studentchromebook/event-resources-and-calendar/event-planning-print-materials
+        gblue = (51, 105, 232)
+        gred = (213, 15, 37)
+        gyellow = (238, 178, 17)
+        ggreen = (0, 153, 37)
+        palette = [gblue, gred, gyellow, ggreen]
+        
+        i = 0
+        while(1):
+            self.client.push(*palette[i])
+            self.client.update()
+            sleep(0.5)
+            i = (i + 1) % len(palette)
