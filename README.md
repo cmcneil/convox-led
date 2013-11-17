@@ -15,7 +15,7 @@ The input consists of a header byte, two optional index bytes, and three color
 bytes, which are required for all headers except the update command. The bits in
 the header are as follows:
 
-|================
+|==================
 | bit | Use/meaning
 | 0 | Update
 | 1 | Push
@@ -25,6 +25,6 @@ the header are as follows:
 | 5 | Rotate
 | 6 | Hypotnuse
 | 7 | HSV
-|================
+|==================
 
 That's it! Have fun.
