@@ -4,6 +4,8 @@ from socket import socket
 import struct
 from time import sleep
 
+NGLOBES = 9
+
 class LEDClient:
     """
     Thin interface over the protocol. Mostly just an example for reference
@@ -68,6 +70,13 @@ class LEDWarlock:
             self.client = LEDClient()
         else:
             self.client = client
+            
+    def clear(self):
+        """
+        Clears the Chain.
+        """
+        self.client.fill(0, 0, 0)
+        self.client.update()
     
     def strobe(self, freq=10.0):
         """
@@ -88,7 +97,6 @@ class LEDWarlock:
     def rainbow(self):
         """
         Pushes a rainbow out onto the chain.
- 
         """
         H = 0
         S = 255
