@@ -29,7 +29,7 @@ def hsv_to_rgb(H, S, V):
     r += m
     g += m
     b += m
-    return int(256 * r), int(256 * g), int(256 * b)
+    return int(255 * r), int(255 * g), int(255 * b)
 
 # Start the server.
 strand = ledctrl.Strand(NUM_LEDS)

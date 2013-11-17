@@ -85,6 +85,22 @@ class LEDWarlock:
         """
         """
 
+    def rainbow(self):
+        """
+        Pushes a rainbow out onto the chain.
+ 
+        """
+        H = 0
+        S = 255
+        V = 255
+        self.client.set_color_basis('hsv')
+        while(1):
+            self.client.push(H, S, V)
+            self.client.update()
+            H += 1
+            H %= 256
+            sleep(0.1)
+
     def google(self):
         """
         It's a Google party!
