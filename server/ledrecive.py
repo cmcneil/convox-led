@@ -10,7 +10,7 @@ NUM_LEDS = 90
 NGLOBES = 9
 
 def hsv_to_rgb(H, S, V):
-    C = S * V
+    C = S * V / 65536.0
     H0 = 6.0 * H / 256.0
     X = C * (1 - abs((H0 % 2) - 1))
     if H0 < 1:
