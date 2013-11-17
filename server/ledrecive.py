@@ -25,7 +25,7 @@ def hsv_to_rgb(H, S, V):
         r, g, b = X, 0, C
     else:
         r, g, b = C, 0, X
-    m = V - C
+    m = (V / 256.0) - C
     r += m
     g += m
     b += m
