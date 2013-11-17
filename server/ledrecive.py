@@ -47,6 +47,7 @@ while(1):
     for ss in r:
         # Accept another client
         if ss == server:
+            client, address = ss.accept()
             inputs.append(client)
         else:
             try:
