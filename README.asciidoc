@@ -10,7 +10,7 @@ messages under the protocol discribed below.
 
 Protocol
 --------
-
+Currently, the project is such that a server (the Raspberry Pi) accepts all TCP packets using the protocol we lay out here.
 The input consists of a header byte, two optional index bytes, and three color
 bytes, which are required for all headers except the update command. The bits in
 the header are as follows:
@@ -25,6 +25,11 @@ the header are as follows:
 | 5 | Rotate
 | 6 | Hypotnuse
 | 7 | HSV
+--------------------
+| 16 bits | _Optional:_ Index unisgned short. For operations where a particular light must be specified.
+| 8 bits | _Optional:_ *R/H* 0-255, either Red, or Hue depending on whether or not bit 7 is set
+| 8 bits | _Optional:_ *G/S* 0-255, either Green, or Saturation, depending on whether or not bit 7 is set
+| 8 bits | _Optional:_ *B/V* 0-255, either Blue, or Value, depending on whether or not bit 7 is set
 |==================
 
 That's it! Have fun.
