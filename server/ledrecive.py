@@ -42,16 +42,16 @@ server.listen(5)
 inputs = [server]
 
 while(1):
-    r, s, e = select(inputs, [], [])
+    r, w, e = select(inputs, [], [])
 
-    for ss in r:
+    for s in r:
         # Accept another client
-        if ss == server:
-            client, address = ss.accept()
+        if s == server:
+            client, address = s.accept()
             inputs.append(client)
         else:
             try:
-                header = ss.recv(1)
+                header = s.recv(1)
                 if not header:
                     raise sck.error
                 header = struct.unpack('!B', header)[0]
@@ -65,11 +65,11 @@ while(1):
                     break
                 # Set, requires index bytes
                 if header & 0x20:
-                    index = ss.recv(2)
+                    index = s.recv(2)
                     if not index:
                         raise sck.error
                     index = struct.unpack('!H', index)[0]
-                data = ss.recv(3)
+                data = s.recv(3)
                 if not data:
                     raise sck.error
                 color = struct.unpack('!BBB', data)
