@@ -24,8 +24,7 @@ the header are as follows:
 | 4 | *Reverse* - If set, a push or rotate is interpreted as going the other direction.
 | 5 | *Rotate* - Rotates all the colors around the globe. No additional bytes expected.
 | 6 | *Hypotnuse* - Self explanatory. See http://www.kurims.kyoto-u.ac.jp/~motizuki/Inter-universal%20Teichmuller%20Theory%20II.pdf
-| 7 | HSV
---------------------
+| 7 | *HSV* - If set, colors will be interpreted as HSV instead of RGB
 | 16 bits | _Optional:_ Index unisgned short. For operations where a particular light must be specified.
 | 8 bits | _Optional:_ *R/H* 0-255, either Red, or Hue depending on whether or not bit 7 is set
 | 8 bits | _Optional:_ *G/S* 0-255, either Green, or Saturation, depending on whether or not bit 7 is set
