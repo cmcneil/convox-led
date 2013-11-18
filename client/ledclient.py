@@ -82,11 +82,12 @@ class LEDWarlock:
         """
         White light strobe. freq is the frequency in Herz
         """
+        self.client.set_color_basis("rgb")
         while(1):
             self.client.fill(0, 0, 0)
             self.client.update()
             sleep(1.0 / (freq * 2.0))
-            self.client.fill(254, 254, 254)
+            self.client.fill(255, 255, 255)
             self.client.update()
             sleep(1.0 / (freq * 2.0))
 
@@ -108,12 +109,28 @@ class LEDWarlock:
             H += 1
             H %= 256
             sleep(0.1)
+            
+    def disco(self):
+        """
+        Pushes a rainbow out onto the chain.
+        """
+        H = 0
+        S = 255
+        V = 255
+        self.client.set_color_basis('hsv')
+        while(1):
+            self.client.push(H, S, V)
+            self.client.update()
+            H += 30
+            H %= 256
+            sleep(0.5)
 
     def google(self):
         """
         It's a Google party!
         """
         # https://sites.google.com/site/studentchromebook/event-resources-and-calendar/event-planning-print-materials
+        self.client.set_color_basis('rgb')
         gblue = (51, 105, 232)
         gred = (213, 15, 37)
         gyellow = (238, 178, 17)
