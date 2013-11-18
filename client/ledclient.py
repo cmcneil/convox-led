@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#/usr/bin/env python
 
 from socket import socket
 import struct
@@ -138,6 +138,55 @@ class LEDWarlock:
             sleep(0.01)
             step += 1
             step %= 255
+
+    def slow_fade_rainbow(self):
+        H = 0
+        S = 255
+        V = 255
+        self.client.set_color_basis('hsv')
+        while(1):
+            self.client.fill(H, S, V)
+            self.client.update()
+            H += 1
+            H %= 256
+            sleep(0.05)
+ 
+    def christmas_time(self):
+        """
+        Ho ho ho.
+        """
+        red = (213, 15, 37)
+        green = (0, 153, 37)
+        self.client.set_color_basis('rgb')
+        while(1):
+            for i in range (9): 
+                self.client.push(red)
+                self.client.update()
+                sleep(0.3)
+                self.client.push(green)
+                self.client.update()
+                sleep(0.3)
+            for i in range(9): 
+                self.client.push(red)
+                self.update()
+                sleep(0.15)
+            sleep(0.15)
+            for i in range(5):
+                self.client.fill(green)
+                self.client.update()
+                sleep(0.3)
+                self.client.fill(red)
+                self.client.update()
+                sleep(0.3)
+            for i in range(9):
+                for i in range(3):
+                    self.client.push(green) 
+                    self.client.update()
+                    sleep(0.1)
+                for i in range(3):
+                    self.client.push(red)
+                    self.client.update()
+                    sleep(0.1)
 
     def google(self):
         """
