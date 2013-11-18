@@ -108,7 +108,7 @@ class LEDWarlock:
             self.client.update()
             H += 10
             H %= 256
-            sleep(0.1)
+            sleep(0.5)
             
     def disco(self):
         """
@@ -129,6 +129,9 @@ class LEDWarlock:
         """
         Rawr!
         """
+        H = 0
+        S = 255
+        V = 255
         step = 0
         while True:
             self.client.set_color_basis('hsv')
