@@ -105,9 +105,26 @@ class LEDWarlock:
         while(1):
             self.client.push(H, S, V)
             self.client.update()
-            H += 1
+            H += 10
             H %= 256
-            sleep(0.1)
+            sleep(0.01)
+
+    def other_rainbow(self):
+        """
+        Rawr!
+        """
+        H = 0
+        S = 255
+        V = 255
+        step = 0
+        while True:
+            self.client.set_color_basis('hsv')
+            for i in range(9):
+                self.client.set(i, (H + step + 28.333 * i) % 255, S, V)
+            self.client.update()
+            sleep(0.01)
+            step += 1
+            step %= 255
 
     def google(self):
         """
