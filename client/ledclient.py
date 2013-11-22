@@ -3,6 +3,7 @@
 from socket import socket
 import struct
 from time import sleep
+import sys
 
 NGLOBES = 9
 
@@ -163,31 +164,31 @@ class LEDWarlock:
         self.client.set_color_basis('rgb')
         while(1):
             for i in range (9): 
-                self.client.push(red)
+                self.client.push(*red)
                 self.client.update()
                 sleep(0.3)
-                self.client.push(green)
+                self.client.push(*green)
                 self.client.update()
                 sleep(0.3)
             for i in range(9): 
-                self.client.push(red)
-                self.update()
+                self.client.push(*red)
+                self.client.update()
                 sleep(0.15)
             sleep(0.15)
             for i in range(5):
-                self.client.fill(green)
+                self.client.fill(*green)
                 self.client.update()
                 sleep(0.3)
-                self.client.fill(red)
+                self.client.fill(*red)
                 self.client.update()
                 sleep(0.3)
             for i in range(9):
                 for i in range(3):
-                    self.client.push(green) 
+                    self.client.push(*green) 
                     self.client.update()
                     sleep(0.1)
                 for i in range(3):
-                    self.client.push(red)
+                    self.client.push(*red)
                     self.client.update()
                     sleep(0.1)
 
@@ -209,3 +210,11 @@ class LEDWarlock:
             self.client.update()
             sleep(0.5)
             i = (i + 1) % len(palette)
+
+
+if __name__=="__main__":
+    routine = sys.argv[1][2:]
+    w = LEDWarlock()
+    func = getattr(w, routine)
+    func()
+
