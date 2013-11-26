@@ -213,8 +213,71 @@ class LEDWarlock:
 
 
 if __name__=="__main__":
-    routine = sys.argv[1][2:]
-    w = LEDWarlock()
-    func = getattr(w, routine)
-    func()
+    # routine = sys.argv[1][2:]
+    # w = LEDWarlock()
+    # func = getattr(w, routine)
+    # func()
+
+    import alsaaudio, time, audioop
+
+    # Open the device in nonblocking capture mode. The last argument could
+    # just as well have been zero for blocking mode. Then we could have
+    # left out the sleep call in the bottom of the loop
+    inp = alsaaudio.PCM(alsaaudio.PCM_CAPTURE,alsaaudio.PCM_NONBLOCK)
+
+    # Set attributes: Mono, 8000 Hz, 16 bit little endian samples
+    inp.setchannels(1)
+    inp.setrate(8000)
+    inp.setformat(alsaaudio.PCM_FORMAT_S16_LE)
+
+    # The period size controls the internal number of frames per period.
+    # The significance of this parameter is documented in the ALSA api.
+    # For our purposes, it is suficcient to know that reads from the device
+    # will return this many frames. Each frame being 2 bytes long.
+    # This means that the reads below will return either 320 bytes of data
+    # or 0 bytes of data. The latter is possible because we are in nonblocking
+    # mode.
+    inp.setperiodsize(160)
+    MINSOUND = 100
+    MAXSOUND = 2130
+
+    client = LEDClient()
+    client.set_color_basis('hsv')
+
+    counter = 0;
+    max_counter = 15
+
+    H = 0
+    S = 255
+    volsum = 0
+    step = 0
+    while True:
+        # Read data from device
+        l,data = inp.read()
+        if l:
+            # Return the maximum of the absolute value of all samples in a fragment.
+            m=audioop.max(data, 2)
+            volsum +=m;
+            counter += 1
+
+            if counter < max_counter:
+                print "vol:", m
+            else:
+                counter = 0
+                v = ((volsum/max_counter - MINSOUND) * 255)/MAXSOUND;
+                if v > 255:
+                    v = 255
+                if v < 0:
+                    v = 0
+                print m,v
+                # H += 1
+                # H %= 256
+                # client.fill(H,S,v)
+                for i in range(9):
+                    client.set(i, (H + step + 28.333 * i) % 255, S, v)
+                client.update()
+                volsum = 0
+                step += max_counter
+                step %= 255
+            time.sleep(.001)
 
