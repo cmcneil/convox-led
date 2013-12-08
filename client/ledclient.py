@@ -212,12 +212,27 @@ class LEDWarlock:
             i = (i + 1) % len(palette)
 
 
-if __name__=="__main__":
-    # routine = sys.argv[1][2:]
-    # w = LEDWarlock()
-    # func = getattr(w, routine)
-    # func()
 
+    def outside(self):
+        """
+        An attempt to emulate natural light using 
+        http://planetpixelemporium.com/tutorialpages/light.html as a reference.
+        """
+        zipWith = lambda f, lst1, lst2 : [f(a, b) for (a,b) in zip(lst1, lst2)]
+        interp = lambda l1, l2, r : zipWith(
+                        lambda x,y: int(r*(float(x) - float(y)) + float(y)),
+                        l2, l1)
+        sun = (255, 255, 251)
+        sky = (64, 156, 255)
+        
+        
+
+if __name__=="__main__":
+    routine = sys.argv[1][2:]
+    w = LEDWarlock()
+    func = getattr(w, routine)
+    func()
+    """
     import alsaaudio, time, audioop
 
     # Open the device in nonblocking capture mode. The last argument could
@@ -280,4 +295,4 @@ if __name__=="__main__":
                 step += max_counter
                 step %= 255
             time.sleep(.001)
-
+    """
