@@ -4,6 +4,7 @@ import math
 from select import select
 import socket as sck
 import struct
+import time
 import ledctrl
 
 NUM_LEDS = 90
@@ -43,6 +44,8 @@ inputs = [server]
 
 while(1):
     r, w, e = select(inputs, [], [])
+
+    print time.clock()
 
     for s in r:
         # Accept another client
