@@ -96,21 +96,6 @@ class LEDWarlock:
         """
         """
 
-    def rainbow(self):
-        """
-        Pushes a rainbow out onto the chain.
-        """
-        H = 0
-        S = 255
-        V = 255
-        self.client.set_color_basis('hsv')
-        while(1):
-            self.client.push(H, S, V)
-            self.client.update()
-            H += 10
-            H %= 256
-            sleep(0.5)
-            
     def disco(self):
         """
         Pushes a rainbow out onto the chain.
@@ -126,7 +111,7 @@ class LEDWarlock:
             H %= 256
             sleep(0.5)
 
-    def other_rainbow(self):
+    def rainbow(self):
         """
         Rawr!
         """
@@ -139,7 +124,7 @@ class LEDWarlock:
             for i in range(9):
                 self.client.set(i, (H + step + 28.333 * i) % 255, S, V)
             self.client.update()
-            sleep(0.01)
+            sleep(0.04)
             step += 1
             step %= 255
 
