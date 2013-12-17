@@ -45,8 +45,6 @@ inputs = [server]
 while(1):
     r, w, e = select(inputs, [], [])
 
-    print time.clock()
-
     for s in r:
         # Accept another client
         if s == server:
