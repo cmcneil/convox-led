@@ -168,7 +168,7 @@ class LEDWarlock:
             for i in range(9):
                 self.client.set(i, (H + step + 28.333 * i) % 255, S, V)
             self.client.update()
-            sleep(0.01)
+            sleep(0.04)
             step += 1
             step %= 255
 
