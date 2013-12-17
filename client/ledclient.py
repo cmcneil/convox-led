@@ -1,11 +1,19 @@
 #/usr/bin/env python
 
+"""
+This file is where various routines are stored. LEDClient provides a thin 
+interface. LEDWarlock contains the routines.
+"""
+
 from socket import socket
 import struct
 from time import sleep
 import sys
 
 NGLOBES = 9
+IDEAL_FLUSH = 0.05 # Experimental result. Flushing the buffer at about
+                   # 200Hz prevents the TCP buffer from filling up,
+                   # but still allows for smooth transitions. 
 
 class LEDClient:
     """
@@ -71,7 +79,36 @@ class LEDWarlock:
             self.client = LEDClient()
         else:
             self.client = client
-            
+    
+    def smooth_transition(self, c1, c2, poffset=0.4, toffset=0.01,
+                          flush_rate=IDEAL_FLUSH):
+        """
+        This is a helper function for building routines easily.
+        Given two colors, it will cause a smooth transition between them in
+        rgb space. Lights will oscillate back and forth between the two 
+        colors, linearly interpolating in RGB space. The lights are out of
+        phase, the offset of which is determined by 
+        poffset: 1 implies completely out of phase, 0 implies in phase.
+        toffset: Determines how quickly they change in time.
+        """    
+        zipWith = lambda f, lst1, lst2 : [f(a, b) for (a,b) in 
+                                          zip(lst1, lst2)]
+        interp = lambda l1, l2, r : zipWith(
+                        lambda x,y: int(r*(float(x) - float(y)) + 
+                                        float(y)), l2, l1)
+        tval = 0.0
+        self.client.set_color_basis('rgb')
+        while(1):
+            for i in range(9):
+                rval = (i*poffset + tval) % 2.0
+                if rval > 1.0:
+                    rval = 1.0 - (rval - 1.0)
+                color = interp(c1, c2, rval)
+                self.client.set(i, *color)
+            self.client.update()
+            sleep(flush_rate)
+            tval += toffset     
+               
     def clear(self):
         """
         Clears the Chain.
@@ -94,23 +131,15 @@ class LEDWarlock:
 
     def sexy_time(self):
         """
+        Get your seduction on ;)
         """
+        sexy_pink = (249, 130, 155)
+        hot_red = (146, 0, 10) # Sangria
+        apricot = (251, 206, 177)
+        orange_red = (255, 36, 0)
+        violet_pink = (249, 120, 200)
+        self.smooth_transition(orange_red, violet_pink, toffset=0.04)
 
-    def rainbow(self):
-        """
-        Pushes a rainbow out onto the chain.
-        """
-        H = 0
-        S = 255
-        V = 255
-        self.client.set_color_basis('hsv')
-        while(1):
-            self.client.push(H, S, V)
-            self.client.update()
-            H += 10
-            H %= 256
-            sleep(0.5)
-            
     def disco(self):
         """
         Pushes a rainbow out onto the chain.
@@ -126,7 +155,7 @@ class LEDWarlock:
             H %= 256
             sleep(0.5)
 
-    def other_rainbow(self):
+    def rainbow(self):
         """
         Rawr!
         """
@@ -211,20 +240,14 @@ class LEDWarlock:
             sleep(0.5)
             i = (i + 1) % len(palette)
 
-
-
     def outside(self):
         """
         An attempt to emulate natural light using 
         http://planetpixelemporium.com/tutorialpages/light.html as a reference.
         """
-        zipWith = lambda f, lst1, lst2 : [f(a, b) for (a,b) in zip(lst1, lst2)]
-        interp = lambda l1, l2, r : zipWith(
-                        lambda x,y: int(r*(float(x) - float(y)) + float(y)),
-                        l2, l1)
         sun = (255, 255, 251)
         sky = (64, 156, 255)
-        
+        self.smooth_transition(sun, sky)
         
 
 if __name__=="__main__":
