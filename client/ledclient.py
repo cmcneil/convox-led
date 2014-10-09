@@ -20,7 +20,7 @@ class LEDClient:
     Thin interface over the protocol. Mostly just an example for reference
     if you want to use other languages.
     """
-    def __init__(self, host='lucifer', port=666):
+    def __init__(self, host='192.168.1.124', port=666):
         self.server = socket()
         self.server.connect((host, port))
         self.hsv = 0x00
@@ -80,7 +80,7 @@ class LEDWarlock:
         else:
             self.client = client
     
-    def smooth_transition(self, c1, c2, poffset=0.4, toffset=0.01,
+    def _smooth_transition(self, c1, c2, poffset=0.4, toffset=0.01,
                           flush_rate=IDEAL_FLUSH):
         """
         This is a helper function for building routines easily.
@@ -138,7 +138,7 @@ class LEDWarlock:
         apricot = (251, 206, 177)
         orange_red = (255, 36, 0)
         violet_pink = (249, 120, 200)
-        self.smooth_transition(orange_red, violet_pink, toffset=0.04)
+        self._smooth_transition(orange_red, violet_pink, toffset=0.04)
 
     def disco(self):
         """
@@ -168,7 +168,7 @@ class LEDWarlock:
             for i in range(9):
                 self.client.set(i, (H + step + 28.333 * i) % 255, S, V)
             self.client.update()
-            sleep(0.04)
+            sleep(0.05)
             step += 1
             step %= 255
 
@@ -247,8 +247,14 @@ class LEDWarlock:
         """
         sun = (255, 255, 251)
         sky = (64, 156, 255)
-        self.smooth_transition(sun, sky)
-        
+        self._smooth_transition(sun, sky)
+    
+    def warm(self):
+        """
+        Trying to emulate warm daytime colors
+        """        
+        orangey = ()
+
 
 if __name__=="__main__":
     routine = sys.argv[1][2:]
