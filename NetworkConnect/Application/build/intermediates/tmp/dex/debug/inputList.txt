@@ -1,0 +1,8 @@
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/classes/debug
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-ad12691b976b3ff61f8adb11ca62dfbcfeb2a396.jar
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/classes-73130957e5cbb0a20c60da2e41f4b6f44b3346bb.jar
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/classes-5a77fe619136b703dc5b020e493d201180304ed2.jar
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/library-1.0.15-f2d9fe5d70e3d9f12e4a2c2fb280049c42047bf0.jar
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-d4f3a87f3d996456bda756afd9a3130220263622.jar
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/protobuf-java-2.5.0-ae1a3c083fb8dd94ac0f97f93d69de88ffd988f9.jar
+/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/classes-e988b901038450588ca8d5363fae6ae7c4e66fc7.jar

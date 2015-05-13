@@ -1,0 +1,17 @@
+package com.example.android.networkconnect;
+
+option java_package = "com.example.android.networkconnect";
+option java_outer_classname = "ConvoxLed";
+
+// Next Id: 2
+message ConvoxLightPacket {
+    message Color {
+        enum ColorSpace {
+            RGB = 1;
+            HSV = 2;
+        }
+        optional ColorSpace color_space = 1 [default = HSV];
+        repeated int32 coordinates = 2;;
+    }
+    optional Color color = 1;
+}

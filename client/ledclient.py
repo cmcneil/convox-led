@@ -248,7 +248,9 @@ class LEDWarlock:
         sun = (255, 255, 251)
         sky = (64, 156, 255)
         self._smooth_transition(sun, sky)
-    
+   
+    def life(self):
+        self._smooth_transition((0, 255, 0), (255,255,0)) 
     def warm(self):
         """
         Trying to emulate warm daytime colors

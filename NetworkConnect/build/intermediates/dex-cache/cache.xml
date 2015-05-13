@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/libs/internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/internal_impl-21.0.2-d4f3a87f3d996456bda756afd9a3130220263622.jar" />
+    </item>
+    <item
+        jar="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/classes-e988b901038450588ca8d5363fae6ae7c4e66fc7.jar" />
+    </item>
+    <item
+        jar="/home/carson/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.2/support-annotations-21.0.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/support-annotations-21.0.2-ad12691b976b3ff61f8adb11ca62dfbcfeb2a396.jar" />
+    </item>
+    <item
+        jar="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9742ced04aafd9ac97dd2c66c1aa0e32d2ae7e54">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/classes-5a77fe619136b703dc5b020e493d201180304ed2.jar" />
+    </item>
+    <item
+        jar="/home/carson/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.15/9093a362d18c5f81f58e49d86dece57d9b6e1cb7/library-1.0.15.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9093a362d18c5f81f58e49d86dece57d9b6e1cb7">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/library-1.0.15-f2d9fe5d70e3d9f12e4a2c2fb280049c42047bf0.jar" />
+    </item>
+    <item
+        jar="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.2/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b017100da14f9c158c9f5f2f508333c224b24a7c">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/classes-73130957e5cbb0a20c60da2e41f4b6f44b3346bb.jar" />
+    </item>
+    <item
+        jar="/home/carson/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.5.0/a10732c76bfacdbd633a7eb0f7968b1059a65dfa/protobuf-java-2.5.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a10732c76bfacdbd633a7eb0f7968b1059a65dfa">
+        <dex dex="/home/carson/Documents/Coding/AndroidStudioProjects/NetworkConnect/Application/build/intermediates/pre-dexed/debug/protobuf-java-2.5.0-ae1a3c083fb8dd94ac0f97f93d69de88ffd988f9.jar" />
+    </item>
+
+</items>
