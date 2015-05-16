@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Application/Application.iml" filepath="$PROJECT_DIR$/Application/Application.iml" />
-      <module fileurl="file://$PROJECT_DIR$/NetworkConnect.iml" filepath="$PROJECT_DIR$/NetworkConnect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ConvoxLights.iml" filepath="$PROJECT_DIR$/ConvoxLights.iml" />
     </modules>
   </component>
 </project>

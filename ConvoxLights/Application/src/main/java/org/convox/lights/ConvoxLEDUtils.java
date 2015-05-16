@@ -14,7 +14,8 @@ import java.util.concurrent.Executors;
  * Created by carson on 5/9/15.
  */
 public class ConvoxLEDUtils {
-    private static String serverIP = "192.168.1.124";
+    private static String luciferIp = "192.168.1.124";
+    private static String serverIP = "10.0.2.2"; // Host machine IP.
     private static int serverPort = 666;
     private static final int NUM_THREADS = 10;
 
@@ -38,7 +39,7 @@ public class ConvoxLEDUtils {
                         message, messageLength, server, serverPort);
                 socket.send(datagramPacket);
             } catch (Exception e) {
-                Log.d("CONVOX_LED_NETWORK", e.getMessage());
+                Log.i("CONVOX_LED_NETWORK", e.getMessage());
             }
         }
     }

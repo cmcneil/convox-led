@@ -21,8 +21,9 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+
     <fragment
-        android:name="com.example.convox.lights.SimpleTextFragment"
+        android:name="org.convox.lights.SimpleTextFragment"
         android:id="@+id/intro_fragment"
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"/>
     <fragment
-        android:name="com.example.convox.common.logger.LogFragment"
+        android:name="org.convox.common.logger.LogFragment"
         android:id="@+id/log_fragment"
         android:layout_weight="1"
         android:layout_width="match_parent"

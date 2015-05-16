@@ -1,17 +1,5 @@
 /*
- * Copyright 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * carson.mcneil@gmail.com
  */
 
 package org.convox.lights;
@@ -37,12 +25,7 @@ import org.convox.common.logger.MessageOnlyLogFilter;
 import org.convox.lights.R;
 
 /**
- * Sample application demonstrating how to connect to the network and fetch raw
- * HTML. It uses AsyncTask to do the fetch on a background thread. To establish
- * the network connection, it uses HttpURLConnection.
- *
- * This sample uses the logging framework to display log output in the log
- * fragment (LogFragment).
+ * App for controlling a Convox Light Server!
  */
 public class MainActivity extends FragmentActivity {
 
@@ -79,13 +62,15 @@ public class MainActivity extends FragmentActivity {
             // When the user clicks FETCH, fetch the first 500 characters of
             // raw HTML from www.google.com.
             case R.id.fetch_action:
-                writeRawContent("http://www.google.com");
+                Log.i("CONVOX_LED", "hit the fetch button");
+                //writeRawContent("http://www.google.com");
                 return true;
             case R.id.ping_action:
+                Log.i("CONVOX_LED", "Pinged the server!");
                 ConvoxLEDUtils.pushLedPacket(228, 77, 96);
             // Clear the log view fragment.
             case R.id.clear_action:
-              mLogFragment.getLogView().setText("");
+              mLogFragment.getLogView().setText("Stufff");
               return true;
         }
         return false;
@@ -110,25 +95,5 @@ public class MainActivity extends FragmentActivity {
         mLogFragment =
                 (LogFragment) getSupportFragmentManager().findFragmentById(R.id.log_fragment);
         msgFilter.setNext(mLogFragment.getLogView());
-    }
-
-    private void writeRawContent(String url) {
-        // Request a string response from the provided URL.
-        Log.i(TAG, "sending request");
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.i(TAG, "Sent request");
-                        mLogFragment.getLogView().setText("Response is: "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                mLogFragment.getLogView().setText("That didn't work!");
-            }
-        });
-        RequestHandler.getRequestHandler(this).sendRequest(stringRequest);
     }
 }

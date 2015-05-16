@@ -13,9 +13,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.example.convox.lights.tests;
+package org.convox.lights.tests;
 
-import com.example.convox.lights.*;
+import org.convox.lights.*;
 
 import android.test.ActivityInstrumentationTestCase2;
 
