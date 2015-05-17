@@ -18,6 +18,8 @@ func startServer() {
   ServerConn, _ := net.ListenUDP("udp", ServerAddr)
   defer ServerConn.Close()
 
+  pushConf := LightManager()
+
   buf := make([]byte, 1024)
   for {
     // Recieve a UDP packet and unmarshal it into a protobuf.
@@ -29,6 +31,8 @@ func startServer() {
       continue
     }
 
+    //fmt.Print(indata)
+    pushConf(indata)
     /* Do stuff with indata. */
   }
 }
