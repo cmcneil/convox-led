@@ -13,13 +13,6 @@ const (
   nleds uint8 = nglobes * nledsPerGlobe
 )
 
-type LightMachine struct {
-  offset float32 // Offset of the light wheel.
-  positions []float32 // Positions of the lights on the wheel.
-  colors [][3]byte // Colors in the wheel.
-  nsteps int32 // Number of steps to take between a transition.
-  circSize float32 // The effective size of the circle.
-}
 
 // This thread is responsible for writing and propogating
 // the buffer. It takes in configs, and stores two buffers,
@@ -41,6 +34,9 @@ func  LightManager() (func(*ConvoxLightConfig)) {
   })
 }
 
+// This thread is responsible for taking in a config. It owns a lightmachine,
+// which tracks state. It gets buffers from the LightMachine struct, and
+// dispatches them to the writer.
 func processConfigs(confchan chan *ConvoxLightConfig) {
   gamma := make([]byte, 256)
   for i := range gamma {
@@ -59,7 +55,9 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
         // Reset and start using new config.
         // Make sure we write at least once:
         fmt.Print("New Config")
-        fmt.Print(config)
+        lm := machineFromConfig(config)
+        fmt.Println(config)
+        fmt.Println(lm)
         bufchan<-buf
       default:
         // Continue to propogate old config.

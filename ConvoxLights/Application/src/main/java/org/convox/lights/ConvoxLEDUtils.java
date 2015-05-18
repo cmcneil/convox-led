@@ -51,13 +51,16 @@ public class ConvoxLEDUtils {
         }
     }
 
-    public static void pushLedPacket(int h, int s, int v) {
-        Color color = Color.newBuilder().setColorSpace(Color.ColorSpace.HSV)
-                .addCoordinates(h)
-                .addCoordinates(s)
-                .addCoordinates(v).build();
+    public static void pushLedPacket(int r, int g, int b) {
+        Color color = Color.newBuilder().setColorSpace(Color.ColorSpace.RGB)
+                .addCoordinates(r)
+                .addCoordinates(g)
+                .addCoordinates(b).build();
         ConvoxLightConfig lightRequest = ConvoxLightConfig.newBuilder()
-                .addColor(color)
+                .addColors(color)
+                .setPeriod(4000)
+                .setTransitionSteps(200)
+                .setCircleCompression(0.5f)
                 .build();
         FireAndForgetExecutor.exec(new UDPLightPackTask(lightRequest));
 

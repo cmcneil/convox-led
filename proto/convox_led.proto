@@ -1,0 +1,30 @@
+package org.convox.lights;
+
+option java_package = "org.convox.lights";
+option java_outer_classname = "ConvoxLed";
+
+// Next Id: 5
+message ConvoxLightConfig {
+    message Color {
+        enum ColorSpace {
+            RGB = 1;
+            HSV = 2;
+        }
+        optional ColorSpace color_space = 1 [default = RGB];
+        repeated uint32 coordinates = 2;
+    }
+    repeated Color colors = 1;
+
+    // The time (in milliseconds) it takes for a light to move from one color to the next.
+    // A value of 0 means that the lights never change.
+    optional uint32 period = 2;
+
+    // The number of steps it takes for a light to move from one color to the next.
+    // You can think of this like frame rate. A value of 0 means that it will try to be as
+    // smooth as possible. (as high of framerate as the hardware permits.
+    optional uint32 transition_steps = 3;
+
+    // How much of the color wheel (wheel interpolated from evenly spaced colors) do the lights
+    // occupy at any given time.
+    optional float circle_compression = 4;
+}

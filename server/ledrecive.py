@@ -32,72 +32,72 @@ def hsv_to_rgb(H, S, V):
     b += m
     return int(255 * r), int(255 * g), int(255 * b)
 
-# Start the server.
-strand = ledctrl.Strand(NUM_LEDS)
-leds = ledctrl.GlobeChain(strand, NGLOBES)
+if __name__ == "__main__":
+    # Start the server.
+    strand = ledctrl.Strand(NUM_LEDS)
+    leds = ledctrl.GlobeChain(strand, NGLOBES)
 
-server = sck.socket()
-server.bind(('', 666))
-server.listen(5)
+    server = sck.socket()
+    server.bind(('', 666))
+    server.listen(5)
 
-inputs = [server]
+    inputs = [server]
 
-while(1):
-    r, w, e = select(inputs, [], [])
+    while(1):
+        r, w, e = select(inputs, [], [])
 
-    for s in r:
-        # Accept another client
-        if s == server:
-            client, address = s.accept()
-            inputs.append(client)
-        else:
-            try:
-                header = s.recv(1)
-                if not header:
-                    raise sck.error
-                header = struct.unpack('!B', header)[0]
-                # Update
-                if header & 0x80:
-                    leds.update()
-                    break
-                # Rotate (reverse bit controls direction)
-                if header & 0x04:
-                    leds.rotate(header & 0x08)
-                    break
-                # Set, requires index bytes
-                if header & 0x20:
-                    index = s.recv(2)
-                    if not index:
+        for s in r:
+            # Accept another client
+            if s == server:
+                client, address = s.accept()
+                inputs.append(client)
+            else:
+                try:
+                    header = s.recv(1)
+                    if not header:
                         raise sck.error
-                    index = struct.unpack('!H', index)[0]
-                data = s.recv(3)
-                if not data:
-                    raise sck.error
-                color = struct.unpack('!BBB', data)
-                # HSV color
-                if header & 0x01:
-                    r, g, b = hsv_to_rgb(color[0], color[1], color[2])
-                # RGB color
-                else:
-                    r = color[0]
-                    g = color[1]
-                    b = color[2]
-                # Set
-                if header & 0x20:
-                    leds.set(index, r, g, b)
-                # Fill
-                elif header & 0x10:
-                    leds.fill(r, g, b)
-                # Push
-                elif header & 0x40:
-                    # Push from opposite end
-                    if header & 0x08:
-                        leds.ipush(r, g, b)
-                    # Normal push
+                    header = struct.unpack('!B', header)[0]
+                    # Update
+                    if header & 0x80:
+                        leds.update()
+                        break
+                    # Rotate (reverse bit controls direction)
+                    if header & 0x04:
+                        leds.rotate(header & 0x08)
+                        break
+                    # Set, requires index bytes
+                    if header & 0x20:
+                        index = s.recv(2)
+                        if not index:
+                            raise sck.error
+                        index = struct.unpack('!H', index)[0]
+                    data = s.recv(3)
+                    if not data:
+                        raise sck.error
+                    color = struct.unpack('!BBB', data)
+                    # HSV color
+                    if header & 0x01:
+                        r, g, b = hsv_to_rgb(color[0], color[1], color[2])
+                    # RGB color
                     else:
-                        leds.push(r, g, b)
-            except sck.error, e:
-                inputs.remove(s)
+                        r = color[0]
+                        g = color[1]
+                        b = color[2]
+                    # Set
+                    if header & 0x20:
+                        leds.set(index, r, g, b)
+                    # Fill
+                    elif header & 0x10:
+                        leds.fill(r, g, b)
+                    # Push
+                    elif header & 0x40:
+                        # Push from opposite end
+                        if header & 0x08:
+                            leds.ipush(r, g, b)
+                        # Normal push
+                        else:
+                            leds.push(r, g, b)
+                except sck.error, e:
+                    inputs.remove(s)
 
-server.close()
-
+    server.close()
