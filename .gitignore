@@ -1,2 +1,3 @@
 *.pyc
+/ConvoxLights/Application/build/*
 /build
