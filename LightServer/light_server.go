@@ -4,6 +4,7 @@ import (
   "fmt"
   "github.com/golang/protobuf/proto"
   "net"
+  "time"
 )
 
 func startServer() {
@@ -38,5 +39,12 @@ func startServer() {
 }
 
 func main() {
-  startServer()
+  // startServer()
+  lm := testMachine()
+  datachan := make(chan []byte)
+  go writer(datachan)
+  for {
+    time.Sleep(100 * time.Millisecond)
+    datachan<-lm.GetBuffer()
+  }
 }

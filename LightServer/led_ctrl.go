@@ -8,9 +8,9 @@ import (
 
 const (
   spidev string = "/dev/spidev0.0"
-  nledsPerGlobe uint8 = 10
-  nglobes uint8 = 9
-  nleds uint8 = nglobes * nledsPerGlobe
+  nledsPerGlobe int = 10
+  nglobes int = 9
+  nleds int = nglobes * nledsPerGlobe
 )
 
 
