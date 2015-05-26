@@ -3,9 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/golang/protobuf/proto"
+  "math"
 	"net"
 	"time"
 )
+
+var gamma []byte;
 
 func startServer() {
 	// Bind the port.
@@ -40,9 +43,15 @@ func startServer() {
 
 func main() {
 	// startServer()
+  gamma = make([]byte, 256)
+  for i := range gamma {
+    gamma[i] = 0x80 | byte(int(math.Pow(float64(i) / 255.0, 2.5) * 127.0 + 0.5))
+  }
+
 	lm := testMachine()
 	datachan := make(chan []byte)
 	go writer(datachan)
+  fmt.Print(gamma)
 	for {
 		time.Sleep(1000 * time.Millisecond)
 		buf := lm.GetBuffer()

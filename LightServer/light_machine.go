@@ -68,11 +68,10 @@ func (lm *LightMachine) GetBuffer() []byte {
 			math.Mod(osGlobe, 1.0))
 		for j := 0; j < nledsPerGlobe; j++ {
 			for k := 0; k < 3; k++ {
-				buf[i*nledsPerGlobe*3+j*3+k] = colGlobe[k]
+				buf[i*nledsPerGlobe*3+j*3+k] = gamma[colGlobe[k]]
 			}
 		}
 	}
-	fmt.Println(len(buf))
 	return buf
 }
 
