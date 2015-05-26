@@ -41,21 +41,24 @@ func startServer() {
 	}
 }
 
+func testLightMachine() {
+  lm := testMachine()
+	datachan := make(chan []byte)
+	go writer(datachan)
+  // fmt.Print(gamma)
+	for {
+		time.Sleep(100 * time.Millisecond)
+		// buf := lm.GetBuffer()
+		// fmt.Print(buf)
+		datachan <- lm.GetBuffer()
+	}
+}
+
 func main() {
-	// startServer()
   gamma = make([]byte, 256)
   for i := range gamma {
     gamma[i] = 0x80 | byte(int(math.Pow(float64(i) / 255.0, 2.5) * 127.0 + 0.5))
   }
-
-	lm := testMachine()
-	datachan := make(chan []byte)
-	go writer(datachan)
-  fmt.Print(gamma)
-	for {
-		time.Sleep(1000 * time.Millisecond)
-		buf := lm.GetBuffer()
-		fmt.Print(buf)
-		datachan <- lm.GetBuffer()
-	}
+  // startServer()
+  testLightMachine()
 }
