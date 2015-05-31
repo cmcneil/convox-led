@@ -42,7 +42,7 @@ func machineFromConfig(config *ConvoxLightConfig) *LightMachine {
 func testMachine() *LightMachine {
 	lm := new(LightMachine)
 	lm.delta = 0.5
-	lm.nsteps = 20
+	lm.nsteps = 200
 	lm.t0 = time.Now()
 	lm.period = 2000
 	lm.colors = append(lm.colors, [3]byte{150, 150, 150})

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
  Copyright 2013 The Android Open Source Project
 
@@ -14,34 +14,34 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-
-
-
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.convox.lights"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <!-- Min/target SDK versions (<uses-sdk>) managed by build.gradle -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:label="@string/app_name"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/Theme.Sample"
-        android:allowBackup="true">
-
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Sample" >
         <activity
-            android:name="org.convox.lights.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:uiOptions="splitActionBarWhenNarrow">
-
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
+
 </manifest>

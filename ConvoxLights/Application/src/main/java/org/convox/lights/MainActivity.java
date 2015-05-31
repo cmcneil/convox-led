@@ -4,18 +4,16 @@
 
 package org.convox.lights;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import org.convox.lights.ConvoxLEDUtils;
-import org.convox.lights.SimpleTextFragment;
+import com.chiralcode.colorpicker.ColorPicker;
 
 import org.convox.common.logger.Log;
 import org.convox.common.logger.LogFragment;
@@ -24,12 +22,14 @@ import org.convox.common.logger.MessageOnlyLogFilter;
 
 import org.convox.lights.R;
 
+import java.util.Arrays;
+
 /**
  * App for controlling a Convox Light Server!
  */
 public class MainActivity extends FragmentActivity {
 
-    public static final String TAG = "Network Connect";
+    public static final String TAG = "Convox Lights";
 
     // Reference to the fragment showing events, so we can clear it with a button
     // as necessary.
@@ -38,6 +38,10 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Read the preferences from the preference file.
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+
         setContentView(R.layout.sample_main);
 
         // Initialize text fragment that displays intro text.
@@ -48,6 +52,9 @@ public class MainActivity extends FragmentActivity {
 
         // Initialize the logging framework.
         initializeLogging();
+        initColorListener();
+
+
     }
 
     @Override
@@ -59,12 +66,6 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // When the user clicks FETCH, fetch the first 500 characters of
-            // raw HTML from www.google.com.
-            case R.id.fetch_action:
-                Log.i("CONVOX_LED", "hit the fetch button");
-                //writeRawContent("http://www.google.com");
-                return true;
             case R.id.ping_action:
                 Log.i("CONVOX_LED", "Pinged the server!");
                 ConvoxLEDUtils.pushLedPacket(228, 77, 96);
@@ -74,6 +75,11 @@ public class MainActivity extends FragmentActivity {
               return true;
         }
         return false;
+    }
+
+    public void startSettings(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
 
@@ -95,5 +101,18 @@ public class MainActivity extends FragmentActivity {
         mLogFragment =
                 (LogFragment) getSupportFragmentManager().findFragmentById(R.id.log_fragment);
         msgFilter.setNext(mLogFragment.getLogView());
+    }
+
+    public void initColorListener() {
+        ColorPicker colorPicker = (ColorPicker) findViewById(R.id.color_picker);
+        colorPicker.setColorSelectedListener(new ColorPicker.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(float[] color) {
+                Log.i("CONVOX_LED", "Selected color: " + Arrays.toString(color));
+                if (color.length >= 3) {
+                    ConvoxLEDUtils.fillLights(color[0], color[1], color[2]);
+                }
+            }
+        });
     }
 }

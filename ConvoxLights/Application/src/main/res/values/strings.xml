@@ -22,4 +22,12 @@
     <string name="fetch_text">Fetch</string>
     <string name="clear_text">Clear</string>
     <string name="connection_error">Connection error.</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings">Convox Lights Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_server_ui">Server URI</string>
+    <string name="_server_uri_summ">Specify the server controlling the lights.</string>
 </resources>
