@@ -9,7 +9,7 @@ NGLOBES = 9
 
 class Strand:
     """
-    Represents a full chain of LEDs, with LEDs controllable at the 
+    Represents a full chain of LEDs, with LEDs controllable at the
     individual level.
     """
 
@@ -24,35 +24,36 @@ class Strand:
         self.leds = leds
         self.gamma = bytearray(256)
         self.n = 0 # The pixel currently being written
-        
+
         self.buffer = [0 for x in range(self.leds)]
         for led in range(self.leds):
             self.buffer[led] = bytearray(3)
 
         self.start = 0
-        
+
         # Hardware specific color correction. For explanation, see:
         # http://learn.adafruit.com/light-painting-with-raspberry-pi/software
         for i in range(256):
             self.gamma[i] = 0x80 | int(pow(float(i) / 255.0, 2.5)*127.0 + 0.5)
-    
+
     def push(self, r, g, b):
         """
         Pushes the color specified by r, g, b out to the chain, which acts
-        as a queue.(beginning with the end closest to device) 
+        as a queue.(beginning with the end closest to device)
         All colors move down, last color falls off.
+        THE HARDWARE EXPECTS GRB not RGB BECAUSE IT'S THE WORST!
         r, g, b: color values in the range 0 - 255
         """
         self.start = (self.start - 1) % len(self.buffer)
         self.buffer[self.start][0] = self.gamma[g]
         self.buffer[self.start][1] = self.gamma[r]
         self.buffer[self.start][2] = self.gamma[b]
-    
+
     def ipush(self, r, g, b):
         """
         inverse push.
         Pushes the color specified by r, g, b out to the chain, which acts
-        as a queue.(beginning with the end *FURTHEST FROM* device) 
+        as a queue.(beginning with the end *FURTHEST FROM* device)
         All colors move down, last color falls off.
         r, g, b: color values in the range 0 - 255
         """
@@ -63,7 +64,7 @@ class Strand:
 
     def set(self, i, r, g, b):
         """
-        Sets led i (0-indexed beginning with the closest to the port) to 
+        Sets led i (0-indexed beginning with the closest to the port) to
         the color specified by r, g, b.
         i : integer index, 0 - self.leds
         r, g, b: integer color values in the range 0 - 255
@@ -71,7 +72,7 @@ class Strand:
         self.buffer[i][0] = self.gamma[g]
         self.buffer[i][1] = self.gamma[r]
         self.buffer[i][2] = self.gamma[b]
-        
+
     def rotate(self, opp=False):
         """
         Rotates all of the colors around the strand, looping the last to
@@ -81,7 +82,7 @@ class Strand:
             self.start = (self.start -1) % len(self.buffer)
         else:
             self.start = (self.start + 1) % len(self.buffer)
-        
+
     def fill(self, r, g, b):
         """
         Fill the strand with a single color.
@@ -92,7 +93,7 @@ class Strand:
             self.buffer[led][0] = self.gamma[g]
             self.buffer[led][1] = self.gamma[r]
             self.buffer[led][2] = self.gamma[b]
-            
+
     def update(self):
         """
         Flush the buffer to the strand.
@@ -105,7 +106,7 @@ class Strand:
             self.spi.flush()
         # Weird Bugfix:
         # For some as of yet undetermined reason, the last LED in the strip
-        # does not behave correctly, unless an extra three bytes are 
+        # does not behave correctly, unless an extra three bytes are
         # pushed at the end of the chain. It does not matter what these
         # bytes are, so we push 0, 0, 0
         for x in range(0, self.start):
@@ -131,7 +132,7 @@ class GlobeChain:
         self.globe_size = int(strand.leds / nglobes)
         self.nglobes = nglobes
         self.strand = strand
-    
+
     def fill(self, r, g, b):
         """
         Fills the entire chain of globes with 1 color.
@@ -154,18 +155,18 @@ class GlobeChain:
         """
         for i in range(self.globe_size):
             self.strand.rotate(opp)
-            
+
     def rotate_strand(self, i=None):
         """
         Rotates individual led colors around the strand. If an index i is
-        provided, then the colors are instead rotated in an individual 
+        provided, then the colors are instead rotated in an individual
         globe.
         """
         pass # TODO
 
     def push(self, r, g, b):
         """
-        Pushes a color out at the globe level, treating it like a 
+        Pushes a color out at the globe level, treating it like a
         queue.
         r, g, b: integer color values in range 0-255
         """
@@ -179,19 +180,19 @@ class GlobeChain:
                 self.strand.set(i, r, g, b)
             for i in range(0, old_start):
                 self.strand.set(i, r, g, b)
-            
+
 
     def ipush(self, r, g, b):
         """
         inverse push.
         Pushes the color specified by r, g, b out to the chain, which acts
-        as a queue.(beginning with the end *FURTHEST FROM* device) 
+        as a queue.(beginning with the end *FURTHEST FROM* device)
         All colors move down, last color falls off.
         r, g, b: color values in the range 0 - 255
         """
         old_start = self.strand.start
         self.strand.start = (self.strand.start + 10) % len(self.strand.buffer)
-        
+
         if old_start < self.strand.start:
             for i in range(old_start, self.strand.start):
                 self.strand.set(i, r, g, b)
@@ -200,7 +201,7 @@ class GlobeChain:
                 self.strand.set(i, r, g, b)
             for i in range(0, self.strand.start):
                 self.strand.set(i, r, g, b)
-        
+
     def update(self):
         """
         Flush buffer.

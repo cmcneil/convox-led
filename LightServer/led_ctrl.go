@@ -70,7 +70,7 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
 			}
 		}
 
-		time.Sleep(1000 * time.Millisecond)
+		time.Sleep(500 * time.Millisecond)
 	}
 }
 

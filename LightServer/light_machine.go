@@ -64,9 +64,12 @@ func (lm *LightMachine) GetBuffer() []byte {
 			lm.colors[int(math.Ceil(osGlobe))],
 			math.Mod(osGlobe, 1.0))
 		for j := 0; j < nledsPerGlobe; j++ {
-			for k := 0; k < 3; k++ {
-				buf[i*nledsPerGlobe*3+j*3+k] = gamma[colGlobe[k]]
-			}
+			// NOTICE! I switch the first and second coordinates here. This is
+			// because the LPD8806 hardware is LITERALLY THE WORST and expects colors
+			// as GRB not RGB.
+			buf[i*nledsPerGlobe*3+j*3+0] = gamma[colGlobe[1]]
+			buf[i*nledsPerGlobe*3+j*3+1] = gamma[colGlobe[0]]
+			buf[i*nledsPerGlobe*3+j*3+2] = gamma[colGlobe[2]]
 		}
 	}
 	return buf
