@@ -69,8 +69,6 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
 				bufchan <- buf
 			}
 		}
-
-		time.Sleep(500 * time.Millisecond)
 	}
 }
 
@@ -91,4 +89,5 @@ func writer(buf chan []byte) {
 		f.Write(writedata)
 		fmt.Println("Wrote data! Length: ", len(writedata))
 	}
+	time.Sleep(100 * time.Millisecond)
 }

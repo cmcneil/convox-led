@@ -60,16 +60,16 @@ func (lm *LightMachine) GetBuffer() []byte {
 			float64(len(lm.colors)-1))
 		// fmt.Println("The globe offset: ", osGlobe)
 		// fmt.Println("Number of colors: ", len(lm.colors))
-		colGlobe := colorInterp(lm.colors[int(math.Floor(osGlobe))],
+		r, g, b := colorInterp(lm.colors[int(math.Floor(osGlobe))],
 			lm.colors[int(math.Ceil(osGlobe))],
 			math.Mod(osGlobe, 1.0))
 		for j := 0; j < nledsPerGlobe; j++ {
 			// NOTICE! I switch the first and second coordinates here. This is
 			// because the LPD8806 hardware is LITERALLY THE WORST and expects colors
 			// as GRB not RGB.
-			buf[i*nledsPerGlobe*3+j*3+0] = gamma[colGlobe[1]]
-			buf[i*nledsPerGlobe*3+j*3+1] = gamma[colGlobe[0]]
-			buf[i*nledsPerGlobe*3+j*3+2] = gamma[colGlobe[2]]
+			buf[i*nledsPerGlobe*3+j*3+0] = gamma[g]
+			buf[i*nledsPerGlobe*3+j*3+1] = gamma[r]
+			buf[i*nledsPerGlobe*3+j*3+2] = gamma[b]
 		}
 	}
 	return buf
@@ -100,12 +100,11 @@ func colorToBytes(c *ConvoxLightConfig_Color) [3]byte {
 
 // Interpolate between two colors, given the first color c1,
 // the second color, c2, and how far you are between them on a scale of 0-1.
-func colorInterp(c1 [3]byte, c2 [3]byte, t float64) [3]byte {
-	var newColor [3]byte
-	for i := range c1 {
-		newColor[i] = byte(float64(c1[i]) + (float64(c2[i])-float64(c1[i]))*t)
-	}
-	return newColor
+func colorInterp(c1 [3]byte, c2 [3]byte, t float64) (r byte, g byte, b byte) {
+	r = byte(float64(c1[0]) + (float64(c2[0])-float64(c1[0]))*t)
+	g = byte(float64(c1[1]) + (float64(c2[1])-float64(c1[1]))*t)
+	b = byte(float64(c1[2]) + (float64(c2[2])-float64(c1[2]))*t)
+	return
 }
 
 func hsvToRgb(hsv [3]uint32) [3]uint32 {

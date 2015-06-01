@@ -37,7 +37,6 @@ func startServer() {
 			continue
 		}
 		pushConf(indata)
-		/* Do stuff with indata. */
 	}
 }
 
