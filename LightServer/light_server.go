@@ -12,7 +12,7 @@ var gamma []byte
 
 func startServer() {
 	// Bind the port.
-	ServerAddr, err := net.ResolveUDPAddr("udp", "localhost:666")
+	ServerAddr, err := net.ResolveUDPAddr("udp", "0.0.0.0:666")
 	if err != nil {
 		fmt.Println("Error binding port!")
 	}
@@ -22,14 +22,14 @@ func startServer() {
 	ServerConn, _ := net.ListenUDP("udp", ServerAddr)
 	defer ServerConn.Close()
 
-	//pushConf := LightManager()
+	pushConf := LightManager()
 
 	buf := make([]byte, 1024)
 	fmt.Println("Entering main loop")
 	for {
 		// Recieve a UDP packet and unmarshal it into a protobuf.
 		n, _, _ := ServerConn.ReadFromUDP(buf)
-		fmt.Println("Packet recieved! Length: %d", n)
+		fmt.Println("Packet recieved! Length:", n)
 		indata := new(ConvoxLightConfig)
 		marshalerr := proto.Unmarshal(buf[0:n], indata)
 		if marshalerr != nil {
@@ -38,7 +38,7 @@ func startServer() {
 		}
 
 		fmt.Print(indata)
-		//pushConf(indata)
+		pushConf(indata)
 		/* Do stuff with indata. */
 	}
 }

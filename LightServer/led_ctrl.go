@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	//"math"
-	"os"
+	// "os"
+	"time"
 )
 
 const (
@@ -45,8 +46,10 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
 	bufchan := make(chan []byte)
 	go writer(bufchan)
 
-	buf := make([]byte, nleds)
+	//buf := make([]byte, nleds)
 	fmt.Print("processConfigs main loop")
+	// Initialize light machine to do nothing.
+	var lm *LightMachine = nil
 
 	for {
 		select {
@@ -54,31 +57,39 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
 			// Reset and start using new config.
 			// Make sure we write at least once:
 			fmt.Print("New Config")
-			lm := machineFromConfig(config)
+			lm = machineFromConfig(config)
 			fmt.Println(config)
 			fmt.Println(lm)
+			buf := lm.GetBuffer()
 			bufchan <- buf
 		default:
 			// Continue to propogate old config.
-			bufchan <- buf
+			if (lm != nil) {
+				buf := lm.GetBuffer()
+				bufchan <- buf
+			}
 		}
+
+		time.Sleep(1000 * time.Millisecond)
 	}
 }
 
 // This thread is responsible for flushing the buffer to the lights.
 func writer(buf chan []byte) {
-	f, err := os.Create(spidev)
-	if err != nil {
-		fmt.Print(err)
-	}
-	defer f.Close()
+	// f, err := os.Create(spidev)
+	// if err != nil {
+	// 	fmt.Print(err)
+	// }
+	// defer f.Close()
 	for {
-		f.Write([]byte{0x00})
+		// f.Write([]byte{0x00})
+		// writedata := <-buf
+		// /* Weird bugfix: Had to write 3 non-zero bytes to the end of the chain to
+		//    prevent the last led from getting messed up. Determined experimentally.
+		// */
+		// writedata = append(writedata, 129, 129, 129, 0x00)
+		// f.Write(writedata)
 		writedata := <-buf
-		/* Weird bugfix: Had to write 3 non-zero bytes to the end of the chain to
-		   prevent the last led from getting messed up. Determined experimentally.
-		*/
-		writedata = append(writedata, 129, 129, 129, 0x00)
-		f.Write(writedata)
+		fmt.Println("Wrote data! Length: ", len(writedata))
 	}
 }

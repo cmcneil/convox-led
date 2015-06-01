@@ -26,5 +26,5 @@ message ConvoxLightConfig {
 
     // How much of the color wheel (wheel interpolated from evenly spaced colors) do the lights
     // occupy at any given time.
-    optional float circle_compression = 4;
+    optional float circle_compression = 4 [default = 1.0];
 }

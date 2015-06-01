@@ -15,8 +15,9 @@ import java.util.concurrent.Executors;
  * Created by carson on 5/9/15.
  */
 public class ConvoxLEDUtils {
-    private static String luciferIP = "192.168.1.124";
-    private static String serverIP = "10.0.2.2"; // Host machine IP.
+//    private static String serverIP = "192.168.1.124";
+//    private static String serverIP = "10.0.2.2"; // Host machine IP.
+    private static String serverIP = "192.168.1.134";
     private static int serverPort = 666;
     private static final int NUM_THREADS = 10;
 
@@ -35,7 +36,7 @@ public class ConvoxLEDUtils {
                 DatagramSocket socket = new DatagramSocket();
                 byte[] message = packet.toByteArray();
                 int messageLength = message.length;
-                InetAddress server = InetAddress.getByName(luciferIP);
+                InetAddress server = InetAddress.getByName(serverIP);
                 DatagramPacket datagramPacket = new DatagramPacket(
                         message, messageLength, server, serverPort);
                 socket.send(datagramPacket);
@@ -79,20 +80,23 @@ public class ConvoxLEDUtils {
                 .addColors(color)
                 .setPeriod(4000)
                 .setTransitionSteps(2000)
+                .setCircleCompression(1.0f)
                 .build();
         FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfig));
     }
 
     public static void fillLights(float h, float s, float v) {
-        int[] rgb = hsvToRgb(h, s, v);
+        Log.i("CONVOX_LED", "Fill lights color: h: " + h + ", s:" + s + ", v:" + v);
+        // The hue that we get from the ColorPicker library is in degrees (out of 360). I'm going
+        // to fix that library, but until then, we have to normalize here.
+        int[] rgb = hsvToRgb(h / 360f, s, v);
+        Log.i("CONVOX_LED", "Fill lights color converted: r: " + rgb[0] + ", g:" + rgb[1] + ", b:" + rgb[2]);
         fillLights(rgb[0], rgb[1], rgb[2]);
     }
 
     public static int[] hsvToRgb(float hue, float saturation, float value) {
-        // The hue that we get from the ColorPicker library is in degrees (out of 360). I'm going
-        // to fix that library, but until then, we have to normalize here.
         Log.i("CONVOX_LED", "Selected color: h:" + hue + ", s:" + saturation + ", v:" + value);
-        int h = (int)(hue / 360f * 6);
+        int h = (int)(hue * 6);
         float f = hue * 6 - h;
         float p = value * (1 - saturation);
         float q = value * (1 - f * saturation);
