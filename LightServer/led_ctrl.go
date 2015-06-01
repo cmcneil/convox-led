@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	//"math"
-	// "os"
+	"os"
 	"time"
 )
 
@@ -76,20 +76,19 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
 
 // This thread is responsible for flushing the buffer to the lights.
 func writer(buf chan []byte) {
-	// f, err := os.Create(spidev)
-	// if err != nil {
-	// 	fmt.Print(err)
-	// }
-	// defer f.Close()
+	f, err := os.Create(spidev)
+	if err != nil {
+		fmt.Print(err)
+	}
+	defer f.Close()
 	for {
-		// f.Write([]byte{0x00})
-		// writedata := <-buf
-		// /* Weird bugfix: Had to write 3 non-zero bytes to the end of the chain to
-		//    prevent the last led from getting messed up. Determined experimentally.
-		// */
-		// writedata = append(writedata, 129, 129, 129, 0x00)
-		// f.Write(writedata)
+		f.Write([]byte{0x00})
 		writedata := <-buf
+		/* Weird bugfix: Had to write 3 non-zero bytes to the end of the chain to
+		   prevent the last led from getting messed up. Determined experimentally.
+		*/
+		writedata = append(writedata, 129, 129, 129, 0x00)
+		f.Write(writedata)
 		fmt.Println("Wrote data! Length: ", len(writedata))
 	}
 }
