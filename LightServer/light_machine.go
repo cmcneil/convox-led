@@ -11,13 +11,11 @@ import (
 // a LightMachine, which tracks the state of the light progression, and can
 // transform that state into an appropriate buffer.
 type LightMachine struct {
-	//offset float64 // Offset of the first light projected onto the color wheel.
 	delta  float64   // Space between two lights projected on the color wheel.
 	period uint32    // Time it takes for a light to change colors(ms)
 	nsteps uint32    // Number of distinct frames it takes a light to change colors.
 	colors [][3]byte // Colors in the wheel.
-	t0     time.Time // Time of initialization. TODO(cmcneil): worry about floating point
-	// precision later
+	t0     time.Time // Time of initialization.
 }
 
 func machineFromConfig(config *ConvoxLightConfig) *LightMachine {
@@ -26,7 +24,6 @@ func machineFromConfig(config *ConvoxLightConfig) *LightMachine {
 
 	lm.delta = float64(len(colors)) * float64(config.GetCircleCompression()) /
 		float64(nglobes)
-	//lm.offset = 0.0
 	lm.period = config.GetPeriod()
 	lm.nsteps = config.GetTransitionSteps()
 	lm.t0 = time.Now()
@@ -79,6 +76,7 @@ func (lm *LightMachine) GetBuffer() []byte {
 func colorToBytes(c *ConvoxLightConfig_Color) [3]byte {
 	coords := c.GetCoordinates()
 	space := c.GetColorSpace()
+	fmt.Println("Got Coordinates: ", coords)
 	if len(coords) != 3 {
 		fmt.Print("Malformed Packet!")
 		return [3]byte{0, 0, 0}
@@ -86,9 +84,11 @@ func colorToBytes(c *ConvoxLightConfig_Color) [3]byte {
 	var r, g, b uint32
 	switch space {
 	case ConvoxLightConfig_Color_HSV:
+		fmt.Println("HSV Color recieved")
 		rgb := hsvToRgb([3]uint32{coords[0], coords[1], coords[2]})
 		r, g, b = rgb[0], rgb[1], rgb[2]
 	default:
+		fmt.Println("RGB Color recieved")
 		r, g, b = coords[0], coords[1], coords[2]
 
 	}

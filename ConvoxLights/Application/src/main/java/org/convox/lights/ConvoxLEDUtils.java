@@ -15,9 +15,9 @@ import java.util.concurrent.Executors;
  * Created by carson on 5/9/15.
  */
 public class ConvoxLEDUtils {
-    private static String serverIP = "192.168.1.124";
+//    private static String serverIP = "192.168.1.124";
 //    private static String serverIP = "10.0.2.2"; // Host machine IP.
-//    private static String serverIP = "192.168.1.134";
+    private static String serverIP = "192.168.1.134";
     private static int serverPort = 666;
     private static final int NUM_THREADS = 10;
 
@@ -115,9 +115,9 @@ public class ConvoxLEDUtils {
 
     public static int[] rgbToArray(float r, float g, float b) {
         int[] color = new int[3];
-        color[0] = (int)(r * 256);
-        color[1] = (int)(g * 256);
-        color[2] = (int)(b * 256);
+        color[0] = (int)(r * 255);
+        color[1] = (int)(g * 255);
+        color[2] = (int)(b * 255);
         return color;
     }
 }

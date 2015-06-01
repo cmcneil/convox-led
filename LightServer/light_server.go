@@ -36,8 +36,6 @@ func startServer() {
 			fmt.Print("Corrupt packet!")
 			continue
 		}
-
-		fmt.Print(indata)
 		pushConf(indata)
 		/* Do stuff with indata. */
 	}
