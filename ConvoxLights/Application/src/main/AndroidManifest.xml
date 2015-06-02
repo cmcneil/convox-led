@@ -27,7 +27,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Sample" >
+        android:theme="@style/ConvoxTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
