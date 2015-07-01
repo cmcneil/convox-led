@@ -44,11 +44,8 @@ func testLightMachine() {
 	lm := testMachine()
 	datachan := make(chan []byte)
 	go writer(datachan)
-	// fmt.Print(gamma)
 	for {
 		time.Sleep(16 * time.Millisecond)
-		// buf := lm.GetBuffer()
-		// fmt.Print(buf)
 		datachan <- lm.GetBuffer()
 	}
 }
