@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	//"math"
 	"os"
 	"time"
 )
@@ -25,10 +24,8 @@ func LightManager() func(*ConvoxLightConfig) {
 		// If the channel is full, drop the packet.
 		select {
 		case confchan <- indata:
-			fmt.Print("Sent data")
 			return
 		default:
-			fmt.Print("dropped packet")
 			return
 		}
 	})
@@ -56,7 +53,6 @@ func processConfigs(confchan chan *ConvoxLightConfig) {
 		case config := <-confchan:
 			// Reset and start using new config.
 			// Make sure we write at least once:
-			fmt.Print("New Config")
 			lm = machineFromConfig(config)
 			fmt.Println(config)
 			fmt.Println(lm)
@@ -87,7 +83,6 @@ func writer(buf chan []byte) {
 		*/
 		writedata = append(writedata, 129, 129, 129, 0x00)
 		f.Write(writedata)
-		fmt.Println("Wrote data! Length: ", len(writedata))
 	}
 	time.Sleep(100 * time.Millisecond)
 }

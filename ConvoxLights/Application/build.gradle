@@ -19,6 +19,7 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:22.1.1'
     compile 'com.android.support:cardview-v7:22.1.1'
     compile project(':libs:color-picker-library')
+    compile project(':libs:drag-linear-layout')
 }
 
 // The sample build uses multiple directories to
@@ -34,7 +35,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 15
         targetSdkVersion 22
     }
 

@@ -94,6 +94,27 @@ public class ConvoxLEDUtils {
         FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfig));
     }
 
+    public static void sendConfig(float[][] colors) {
+        ConvoxLightConfig.Builder lightConfigBuilder = ConvoxLightConfig.newBuilder();
+        for (float[] color : colors) {
+            if (color.length < 3) {
+                Log.e(TAG, "MALFORMED COLOR!");
+                return;
+            }
+            int[] rgb = hsvToRgb(color[0] / 360f, color[1], color[2]);
+            Color colorProto = Color.newBuilder().setColorSpace(Color.ColorSpace.RGB)
+                    .addCoordinates(rgb[0])
+                    .addCoordinates(rgb[1])
+                    .addCoordinates(rgb[2]).build();
+            lightConfigBuilder.addColors(colorProto);
+        }
+        lightConfigBuilder.setPeriod(2000)
+                .setTransitionSteps(2000)
+                .setCircleCompression(1.0f);
+        Log.d(TAG, "Config sent: " + lightConfigBuilder.build());
+        FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfigBuilder.build()));
+    }
+
     public static void fillLights(float h, float s, float v) {
         // The hue that we get from the ColorPicker library is in degrees (out of 360). I'm going
         // to fix that library, but until then, we have to normalize here.

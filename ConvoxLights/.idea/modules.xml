@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Application/Application.iml" filepath="$PROJECT_DIR$/Application/Application.iml" />
       <module fileurl="file://$PROJECT_DIR$/ConvoxLights.iml" filepath="$PROJECT_DIR$/ConvoxLights.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/color-picker-library/color-picker-library.iml" filepath="$PROJECT_DIR$/libs/color-picker-library/color-picker-library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/drag-linear-layout/drag-linear-layout.iml" filepath="$PROJECT_DIR$/libs/drag-linear-layout/drag-linear-layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
     </modules>
   </component>
