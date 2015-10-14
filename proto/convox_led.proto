@@ -11,8 +11,10 @@ message ConvoxLightConfig {
             HSV = 2;
         }
         optional ColorSpace color_space = 1 [default = RGB];
+        // Expected 3 coordinates, as color is three dimensional.
         repeated uint32 coordinates = 2;
     }
+    // All of the colors that you want to be displayed on the chain.
     repeated Color colors = 1;
 
     // The time (in milliseconds) it takes for a light to move from one color to the next.
