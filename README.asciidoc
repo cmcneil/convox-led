@@ -10,25 +10,7 @@ messages under the protocol discribed below.
 
 Protocol
 --------
-Currently, the project is such that a server (the Raspberry Pi) accepts all TCP packets using the protocol we lay out here.
-The input consists of a header byte, two optional index bytes, and three color
-bytes, which are required for all headers except the update command. The bits in
-the header are as follows:
-
-|==================
-| bit | Use/meaning
-| 0 | *Update* - If bit is set, don't expect any more bytes, and flush the buffer.
-| 1 | *Push* - Pushes a color out to the first globe, shifting all other colors down the chain.
-| 2 | *Set* - 2 index bytes expected. Set the globe to the specified color.
-| 3 | *Fill* - Fills the entire chain with the given color
-| 4 | *Reverse* - If set, a push or rotate is interpreted as going the other direction.
-| 5 | *Rotate* - Rotates all the colors around the globe. No additional bytes expected.
-| 6 | *Hypotnuse* - Self explanatory. See http://www.kurims.kyoto-u.ac.jp/~motizuki/Inter-universal%20Teichmuller%20Theory%20II.pdf
-| 7 | *HSV* - If set, colors will be interpreted as HSV instead of RGB
-| 16 bits | _Optional:_ Index unisgned short. For operations where a particular light must be specified.
-| 8 bits | _Optional:_ *R/H* 0-255, either Red, or Hue depending on whether or not bit 7 is set
-| 8 bits | _Optional:_ *G/S* 0-255, either Green, or Saturation, depending on whether or not bit 7 is set
-| 8 bits | _Optional:_ *B/V* 0-255, either Blue, or Value, depending on whether or not bit 7 is set
-|==================
+Currently, the project is such that a server (the Raspberry Pi) accepts all UDP packets using the protocol we lay out in the proto file.
+I know the docs are incomplete (mostly in-code and in the proto-file). Working on that. If you have questions, feel free to ping me!
 
 That's it! Have fun.
