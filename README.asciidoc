@@ -8,9 +8,13 @@ We wanted to create a simple interface for controlling Adafruit LED strands.
 This server is run on a Raspberry Pi connected to the LED strand, and recieves
 messages under the protocol discribed below.
 
+Directory Notes
+---------------
+The `server` directory is the old (much worse) Python version of the server. Feel free to ignore it. `LightServer` contains the current Go server, and `ConvoxLights` contains the android app.
+
 Protocol
 --------
-Currently, the project is such that a server (the Raspberry Pi) accepts all UDP packets using the protocol we lay out in the proto file.
+Currently, the project is such that a server (the Raspberry Pi) accepts all UDP packets using the protocol we lay out in the proto file (in the `proto` directory).
 I know the docs are incomplete (mostly in-code and in the proto-file). Working on that. If you have questions, feel free to ping me!
 
 That's it! Have fun.
