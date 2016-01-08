@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.1.1/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="22886d910315028a2b34b1ba068c265534ade87a">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/classes-5d5e71b84bbb6f8b97f61c71a84026eed86f8dd8.jar" />
+    </item>
+    <item
+        jar="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/22.1.1/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2f958cff6198f222923ef646cbc17a7f38935c2b">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/classes-671613b3b89ea541a95bd9d84dab08d3785db5b5.jar" />
+    </item>
+    <item
+        jar="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/libs/internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-4a457870bc4c3ded6dc77dbdb100894d79abc57e.jar" />
+    </item>
+    <item
+        jar="/home/carson/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.1/support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/support-annotations-22.1.1-f50f4e3e452b333dcf967676602944236d2de3d2.jar" />
+    </item>
+    <item
+        jar="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/exploded-aar/ConvoxLights.libs/color-picker-library/unspecified/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a7b9709037738c2256f32cc6ae27bf34726beecf">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/classes-ebb3e03e81b83dab50b4041f71720e9f3f8aad56.jar" />
+    </item>
+    <item
+        jar="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/classes-87657822296a473746ca532c50ed36b7766c2e6d.jar" />
+    </item>
+    <item
+        jar="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/exploded-aar/ConvoxLights.libs/drag-linear-layout/unspecified/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0b11ad46f0c5be00f025f72612b7814fff6cf3e6">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/classes-732196685646aad6e8ca7969b5ec73fa0cd03f9a.jar" />
+    </item>
+    <item
+        jar="/home/carson/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.19/a8f23f65fc1e522ee4a1a697ee569901a46741fa/library-1.0.19.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/release/library-1.0.19-376c79bf438cb2a93a4a51d228c7b517021c1013.jar" />
+    </item>
+    <item
+        jar="/home/carson/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/2.5.0/a10732c76bfacdbd633a7eb0f7968b1059a65dfa/protobuf-java-2.5.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a10732c76bfacdbd633a7eb0f7968b1059a65dfa">
+        <dex dex="/home/carson/Desktop/convox-led/ConvoxLights/Application/build/intermediates/pre-dexed/debug/protobuf-java-2.5.0-ae1a3c083fb8dd94ac0f97f93d69de88ffd988f9.jar" />
+    </item>
+
+</items>

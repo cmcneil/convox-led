@@ -90,30 +90,48 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onColorAdded(float[] color) {
                 // Construct a new color dot.
-                ColorDot newColor = new ColorDot(MainActivity.this);
-                newColor.setLayoutParams(
-                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT));
-                newColor.setColor(color);
-                colorTray.addDragView(newColor, newColor);
-                if (mActiveColor != null) {
-                    mActiveColor.setNotSelected();
-                }
-                mActiveColor = newColor;
-//                }
-                newColor.setOnSelectedListener(new ColorDot.OnSelectedListener() {
-                    @Override
-                    public void onSelected(ColorDot selectedDot) {
-                        if (mActiveColor != selectedDot) {
-                            mActiveColor.setNotSelected();
-                            mActiveColor = selectedDot;
-                            mActiveColor.setIsSelected();
-                        }
-                    }
-                });
-                mActiveColor.setIsSelected();
+                initColorDot(color);
             }
         });
+    }
+
+    private void initColorDot(float[] color) {
+        final ColorDot dot = new ColorDot(MainActivity.this);
+        dot.setLayoutParams(
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+        dot.setColor(color);
+        colorTray.addDragView(dot, dot);
+        dot.setOnDeletedListener(new ColorDot.OnDeletedListener() {
+            @Override
+            public void onDeleted(ColorDot deletedDot) {
+                colorTray.removeDragView(dot);
+                if (mActiveColor == dot) {
+                    if (colorTray.getChildCount() >= 1) {
+                        mActiveColor = (ColorDot) colorTray.getChildAt(0);
+                        mActiveColor.setIsSelected();
+                    } else {
+                        mActiveColor = null;
+                    }
+                }
+            }
+        });
+
+        if (mActiveColor != null) {
+            mActiveColor.setNotSelected();
+        }
+        mActiveColor = dot;
+        dot.setOnSelectedListener(new ColorDot.OnSelectedListener() {
+            @Override
+            public void onSelected(ColorDot selectedDot) {
+                if (mActiveColor != selectedDot) {
+                    mActiveColor.setNotSelected();
+                    mActiveColor = selectedDot;
+                    mActiveColor.setIsSelected();
+                }
+            }
+        });
+        mActiveColor.setIsSelected();
     }
 
     private void sendNewConfig() {

@@ -17,9 +17,7 @@ import java.util.concurrent.Executors;
  * Created by carson on 5/9/15.
  */
 public class ConvoxLEDUtils {
-    private static String serverIP = "192.168.1.124";
-//    private static String serverIP = "10.0.2.2"; // Host machine IP.
-//    private static String serverIP = "192.168.1.134";
+    private static String serverIP = "192.168.86.124";
     private static int serverPort = 666;
     private static final int NUM_THREADS = 10;
     private static DatagramSocket socket;
