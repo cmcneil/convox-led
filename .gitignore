@@ -1,2 +1,5 @@
 *.pyc
 ConvoxLights/Application/build
+.idea/*
+.gradle/*
+*.iml

@@ -7,6 +7,7 @@ package org.convox.lights;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.chiralcode.colorpicker.ColorPicker;
 import com.jmedeisis.draglinearlayout.DragLinearLayout;
@@ -26,8 +28,10 @@ public class MainActivity extends FragmentActivity {
 
     public static final String TAG = "CONVOX_LIGHTS";
     public String test = "test";
+    public String serverURI = "";
     private DragLinearLayout colorTray;
     private ColorDot mActiveColor;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class MainActivity extends FragmentActivity {
 
         initColorListeners();
         initColorTray();
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+//        this.serverURI = sharedPref.getString("pref_server_uri", "");
     }
 
     @Override
@@ -140,6 +147,8 @@ public class MainActivity extends FragmentActivity {
             ColorDot child = (ColorDot) colorTray.getChildAt(i);
             colors[i] = child.getColor();
         }
-        ConvoxLEDUtils.sendConfig(colors);
+        String serverURIcurrent = this.sharedPref.getString("pref_server_uri", "");
+//        Toast.makeText(this, "Request sent to URI: " + serverURIcurrent, Toast.LENGTH_SHORT).show();
+        ConvoxLEDUtils.sendConfig(colors, serverURIcurrent);
     }
 }

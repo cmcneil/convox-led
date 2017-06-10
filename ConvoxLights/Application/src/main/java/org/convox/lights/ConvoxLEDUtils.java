@@ -9,7 +9,6 @@ import org.convox.lights.ConvoxLed.ConvoxLightConfig.Color;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.Arrays;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -17,8 +16,8 @@ import java.util.concurrent.Executors;
  * Created by carson on 5/9/15.
  */
 public class ConvoxLEDUtils {
-    private static String serverIP = "192.168.86.124";
-    private static int serverPort = 666;
+//    private static String serverIP = "192.168.86.124";
+//    private static int serverPort = 666;
     private static final int NUM_THREADS = 10;
     private static DatagramSocket socket;
     private static final String TAG = "CONVOX_LED";
@@ -37,17 +36,23 @@ public class ConvoxLEDUtils {
     public static class UDPLightPackTask implements Runnable {
 
         private ConvoxLightConfig packet;
+        private String uri;
 
-        public UDPLightPackTask(ConvoxLightConfig packet) {
+        public UDPLightPackTask(ConvoxLightConfig packet, String uri) {
             this.packet = packet;
+            this.uri = uri;
         }
 
         @Override
         public void run() {
             try {
+                String[] parts = this.uri.split(":");
+                String serverIp = parts[0];
+                int serverPort = Integer.parseInt(parts[1]);
+
                 byte[] message = packet.toByteArray();
                 int messageLength = message.length;
-                InetAddress server = InetAddress.getByName(serverIP);
+                InetAddress server = InetAddress.getByName(serverIp);
                 DatagramPacket datagramPacket = new DatagramPacket(
                         message, messageLength, server, serverPort);
                 getSocketInstance().send(datagramPacket);
@@ -64,7 +69,7 @@ public class ConvoxLEDUtils {
         }
     }
 
-    public static void pushLedPacket(int r, int g, int b) {
+    public static void pushLedPacket(int r, int g, int b, String uri) {
         Color color = Color.newBuilder().setColorSpace(Color.ColorSpace.RGB)
                 .addCoordinates(r)
                 .addCoordinates(g)
@@ -75,10 +80,10 @@ public class ConvoxLEDUtils {
                 .setTransitionSteps(200)
                 .setCircleCompression(0.5f)
                 .build();
-        FireAndForgetExecutor.exec(new UDPLightPackTask(lightRequest));
+        FireAndForgetExecutor.exec(new UDPLightPackTask(lightRequest, uri));
     }
 
-    public static void fillLights(int r, int g, int b) {
+    public static void fillLights(int r, int g, int b, String uri) {
         Color color = Color.newBuilder().setColorSpace(Color.ColorSpace.RGB)
                 .addCoordinates(r)
                 .addCoordinates(g)
@@ -89,10 +94,10 @@ public class ConvoxLEDUtils {
                 .setTransitionSteps(2000)
                 .setCircleCompression(1.0f)
                 .build();
-        FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfig));
+        FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfig, uri));
     }
 
-    public static void sendConfig(float[][] colors) {
+    public static void sendConfig(float[][] colors, String uri) {
         ConvoxLightConfig.Builder lightConfigBuilder = ConvoxLightConfig.newBuilder();
         for (float[] color : colors) {
             if (color.length < 3) {
@@ -110,7 +115,7 @@ public class ConvoxLEDUtils {
                 .setTransitionSteps(2000)
                 .setCircleCompression(1.0f);
         Log.d(TAG, "Config sent: " + lightConfigBuilder.build());
-        FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfigBuilder.build()));
+        FireAndForgetExecutor.exec(new UDPLightPackTask(lightConfigBuilder.build(), uri));
     }
 
     public static void fillLights(float h, float s, float v) {

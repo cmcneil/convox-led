@@ -4,5 +4,5 @@
         android:key="pref_server_uri"
         android:title="@string/pref_server_ui"
         android:summary="@string/_server_uri_summ"
-        android:defaultValue="192.168.86.124:666" />
+        android:defaultValue="10.0.0.37:666" />
 </PreferenceScreen>

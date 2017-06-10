@@ -3,7 +3,7 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.2.1" />
         <option name="gradleJvm" value="1.8" />
@@ -11,11 +11,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Application" />
-            <option value="$PROJECT_DIR$/libs" />
-            <option value="$PROJECT_DIR$/libs/color-picker-library" />
-            <option value="$PROJECT_DIR$/libs/drag-linear-layout" />
+            <option value="$PROJECT_DIR$/color-picker" />
+            <option value="$PROJECT_DIR$/drag-linear-layout" />
           </set>
         </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
